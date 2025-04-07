@@ -65,6 +65,7 @@ object MusinsaText {
             minLines = minLines
         )
     }
+
     @Composable
     fun BodyMediumText(
         text: TextResource,

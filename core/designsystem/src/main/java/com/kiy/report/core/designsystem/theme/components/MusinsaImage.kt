@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import coil3.compose.AsyncImage
 
 object MusinsaImage {
     @Composable
@@ -26,5 +27,24 @@ object MusinsaImage {
                 colorFilter = colorFilter
             )
         }
+    }
+
+    @Composable
+    fun NetworkImage(
+        imageUrl: String,
+        modifier: Modifier = Modifier,
+        contentDescription: String? = null,
+        contentScale: ContentScale = ContentScale.Fit,
+        alpha: Float = 1f,
+        colorFilter: ColorFilter? = null
+    ) {
+        AsyncImage(
+            model = imageUrl,
+            contentDescription = contentDescription,
+            modifier = modifier,
+            contentScale = contentScale,
+            alpha = alpha,
+            colorFilter = colorFilter
+        )
     }
 }

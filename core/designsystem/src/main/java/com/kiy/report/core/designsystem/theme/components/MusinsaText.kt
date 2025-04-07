@@ -1,15 +1,14 @@
-package com.knowmerce.report.designsystem.component
+package com.kiy.report.core.designsystem.theme.components
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import com.knowmerce.report.designsystem.common.TextResource
-import com.knowmerce.report.designsystem.theme.TextPrimary
-import com.knowmerce.report.designsystem.theme.Typography
+import com.kiy.report.core.designsystem.theme.TextPrimary
+import com.kiy.report.core.designsystem.theme.Typography
 
-object knowmerceText {
+object MusinsaText {
     @Composable
     fun TitleLargeText(
         text: TextResource,

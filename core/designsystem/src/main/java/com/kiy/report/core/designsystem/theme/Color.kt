@@ -1,8 +1,8 @@
-package com.knowmerce.report.designsystem.theme
+package com.kiy.report.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
-val MainYellow = Color(0xFFFFD400)  // 메인 컬러
+val MainColor = Color(0xFF000000)  // 메인 컬러
 
 val Primary = Color(0xFFFFFFFF)
 val Secondary = Color(0xFFF2F4F7)

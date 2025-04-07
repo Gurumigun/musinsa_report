@@ -1,12 +1,11 @@
-package com.knowmerce.report.designsystem.component
+package com.kiy.report.core.designsystem.theme.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import com.knowmerce.report.designsystem.common.ImageResource
 
-object knowmerceImage {
+object MusinsaImage {
     @Composable
     fun Image(
         imageResource: ImageResource,

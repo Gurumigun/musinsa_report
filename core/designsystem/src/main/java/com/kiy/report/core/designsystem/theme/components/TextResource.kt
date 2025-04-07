@@ -1,4 +1,4 @@
-package com.knowmerce.report.designsystem.common
+package com.kiy.report.core.designsystem.theme.components
 
 import android.content.Context
 import androidx.compose.ui.text.AnnotatedString

@@ -10,6 +10,6 @@ import javax.inject.Inject
  * Date : 2025. 4. 7.
  */
 @HiltViewModel
-class MainSavedMediaViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
 ) : ViewModel() {
 }

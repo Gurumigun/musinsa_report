@@ -7,17 +7,10 @@ import javax.inject.Inject
 class ShuffleProductItemsUseCase @Inject constructor(
     private val repository: MusinsaRepository
 ) {
-    suspend operator fun invoke(position: Int): Result<List<MusinsaUiComponent>> =
+    suspend operator fun invoke(item : MusinsaUiComponent): Result<MusinsaUiComponent> =
         runCatching {
-            val list = repository.getMusinsaProducts().getOrThrow()
-            return@runCatching list.mapIndexed { index, musinsaUiComponent ->
-                if (index == position) {
-                    musinsaUiComponent.copy(
-                        list = musinsaUiComponent.list.shuffled()
-                    )
-                } else {
-                    musinsaUiComponent
-                }
-            }
+            return@runCatching item.copy(
+                list = item.list.shuffled()
+            )
         }
 }

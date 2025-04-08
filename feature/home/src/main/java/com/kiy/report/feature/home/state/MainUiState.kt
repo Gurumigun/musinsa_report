@@ -11,7 +11,8 @@ data class MainUiState(
 
 
 sealed class MainEvent {
-
+    data class Refresh(val position: Int) : MainEvent()
+    data class UpdateMoreLoad(val position: Int) : MainEvent()
 }
 
 sealed class MainSideEffect {

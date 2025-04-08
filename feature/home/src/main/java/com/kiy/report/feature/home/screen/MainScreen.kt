@@ -25,6 +25,7 @@ import com.kiy.report.core.model.MusinsaUiData
 import com.kiy.report.core.model.constants.ContentType
 import com.kiy.report.core.model.constants.FooterType
 import com.kiy.report.feature.home.MainViewModel
+import com.kiy.report.feature.home.state.MainEvent
 
 @Composable
 fun MainScreen() {
@@ -34,11 +35,15 @@ fun MainScreen() {
     val footerClick: (Int, FooterType?)-> Unit = { index, footerType ->
         when (footerType) {
             FooterType.MORE -> {
-                viewModel.updateMoreLoad(index)
+                viewModel.onEvent(
+                    MainEvent.UpdateMoreLoad(index)
+                )
             }
 
             FooterType.REFRESH -> {
-                viewModel.refresh(index)
+                viewModel.onEvent(
+                    MainEvent.Refresh(index)
+                )
             }
             else -> {
                 // do nothing

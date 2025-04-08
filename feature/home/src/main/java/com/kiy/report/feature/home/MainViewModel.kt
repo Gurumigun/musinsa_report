@@ -6,7 +6,7 @@ import com.airbnb.mvrx.hilt.AssistedViewModelFactory
 import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
 import com.kiy.report.core.domain.usecase.GetMusinsaProductItemsUseCase
 import com.kiy.report.core.domain.usecase.ShuffleProductItemsUseCase
-import com.kiy.report.core.model.MusinsaUiData
+import com.kiy.report.feature.home.state.MainEvent
 import com.kiy.report.feature.home.state.MainUiState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
  */
 class MainViewModel @AssistedInject constructor(
     private val getMusinsaProductItemsUseCase: GetMusinsaProductItemsUseCase,
-    private val shuffleProductItemsUseCase: ShuffleProductItemsUseCase,
     @Assisted initialState: MainUiState,
 ) : MavericksViewModel<MainUiState>(initialState) {
 
@@ -44,16 +43,32 @@ class MainViewModel @AssistedInject constructor(
         setState { copy(isLoading = isLoading) }
     }
 
-    fun refresh(position: Int) {
-        viewModelScope.launch {
-            shuffleProductItemsUseCase(position)
-                .onSuccess {
-                    setState { copy(isLoading = false, data = it) }
-                }
+    fun onEvent(event: MainEvent) {
+        when (event) {
+            is MainEvent.Refresh -> {
+                refresh(event.position)
+            }
+
+            is MainEvent.UpdateMoreLoad -> {
+                updateMoreLoad(event.position)
+            }
         }
     }
 
-    fun updateMoreLoad(position: Int) {
+    private fun refresh(position: Int) {
+        viewModelScope.launch {
+            val newList = awaitState().data.getOrNull(position)?.let {
+                it.copy(
+                    list = it.list.shuffled()
+                )
+            } ?: return@launch
+            setState { copy(isLoading = false, data = data.mapIndexed { index, musinsaUiComponent ->
+                if (position == index) newList else musinsaUiComponent
+            }) }
+        }
+    }
+
+    private fun updateMoreLoad(position: Int) {
         setState {
             copy(
                 data = data.mapIndexed { index, musinsaUiComponent ->

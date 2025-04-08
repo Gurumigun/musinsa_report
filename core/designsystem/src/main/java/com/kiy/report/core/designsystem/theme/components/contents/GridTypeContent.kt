@@ -20,7 +20,7 @@ import com.kiy.report.core.model.MusinsaUiData
 
 @Composable
 fun GridTypeComponent(
-    modifier: Modifier = Modifier.heightIn(max = 600.dp).wrapContentHeight(),
+    modifier: Modifier = Modifier.heightIn(max = 1200.dp).wrapContentHeight(),
     items: List<MusinsaUiData.GridGoodsData> = emptyList(),
     maxRow: Int = 3,
     onItemClick: (MusinsaUiData.GridGoodsData) -> Unit = {}

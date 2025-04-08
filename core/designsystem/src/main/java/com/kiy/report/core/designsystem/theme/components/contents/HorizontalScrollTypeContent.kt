@@ -19,6 +19,7 @@ fun HorizontalScrollTypeContent(
         modifier = modifier
     ) {
         val itemSize = items.size
+
         LazyRow(
             contentPadding = PaddingValues(
                 start = 16.dp,
@@ -47,13 +48,6 @@ fun HorizontalScrollTypeContent(
 private fun previewHorizontalScroll() {
     HorizontalScrollTypeContent(
         items = listOf(
-            MusinsaProducts(),
-            MusinsaProducts(),
-            MusinsaProducts(),
-            MusinsaProducts(),
-            MusinsaProducts(),
-            MusinsaProducts(),
-            MusinsaProducts(),
         )
     )
 }

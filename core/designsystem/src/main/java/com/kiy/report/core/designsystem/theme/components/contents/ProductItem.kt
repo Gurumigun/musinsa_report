@@ -1,12 +1,16 @@
 package com.kiy.report.core.designsystem.theme.components.contents
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -31,15 +35,23 @@ fun ProductItem(
     price: String,
     saleRate: Int = 0,
     hasCoupon: Boolean = false,
+    onClick : () -> Unit = {},
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier.clickable {
+            onClick()
+        }
     ) {
         Box(
+            modifier = Modifier
+                .aspectRatio(1F / 1.3F)
+                .fillMaxWidth()
+                .heightIn(max = 150.dp),
             contentAlignment = Alignment.BottomStart
         ) {
             MusinsaImage.NetworkImage(
-                modifier = Modifier.fillMaxWidth().height(140.dp),
+                modifier = Modifier
+                    .fillMaxSize(),
                 imageUrl = imageUrl,
                 contentScale = ContentScale.Crop,
             )

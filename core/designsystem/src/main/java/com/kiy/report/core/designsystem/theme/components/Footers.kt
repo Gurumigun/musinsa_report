@@ -26,6 +26,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+enum class FooterType {
+    REFRESH,
+    MORE
+}
+
 @Composable
 fun FooterCard(
     modifier: Modifier = Modifier,
@@ -59,8 +64,8 @@ fun FooterCard(
 
 @Composable
 fun RefreshFooter(
-    onRefreshClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onRefreshClick: () -> Unit
 ) {
     FooterCard(modifier = modifier) {
         Row(
@@ -86,8 +91,8 @@ fun RefreshFooter(
 
 @Composable
 fun MoreFooter(
-    onMoreClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onMoreClick: () -> Unit
 ) {
     FooterCard(modifier = modifier) {
         Row(

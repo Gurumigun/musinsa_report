@@ -1,29 +1,82 @@
 package com.kiy.report.feature.home
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.airbnb.mvrx.MavericksViewModel
+import com.airbnb.mvrx.MavericksViewModelFactory
+import com.airbnb.mvrx.hilt.AssistedViewModelFactory
+import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
 import com.kiy.report.core.domain.usecase.GetMusinsaProductItems
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.kiy.report.feature.home.state.MainUiState
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  *
  * Create : Kwon IkYoung
  * Date : 2025. 4. 7.
  */
-@HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel @AssistedInject constructor(
     private val getMusinsaProductItems: GetMusinsaProductItems,
-) : ViewModel() {
+    @Assisted initialState: MainUiState,
+) : MavericksViewModel<MainUiState>(initialState) {
+
+    @AssistedFactory
+    interface Factory : AssistedViewModelFactory<MainViewModel, MainUiState>
+
+    companion object :
+        MavericksViewModelFactory<MainViewModel, MainUiState> by hiltMavericksViewModelFactory()
 
     init {
         viewModelScope.launch {
+            updateLoading(true)
             getMusinsaProductItems()
                 .onSuccess {
-                    // Handle success
-                    it
+                    setState { copy(isLoading = false, data = it) }
                 }
+        }
+    }
+
+    private fun updateLoading(isLoading: Boolean) {
+        setState { copy(isLoading = isLoading) }
+    }
+
+    fun refresh(position: Int) {
+        setState {
+            val targetList = data[position]
+            val newList = targetList.copy(list = targetList.list.shuffled())
+            copy(data = data.mapIndexed { index, musinsaUiComponent ->
+                if (index == position) {
+                    musinsaUiComponent.copy(
+                        list = newList.list,
+                    )
+                } else {
+                    musinsaUiComponent
+                }
+            })
+        }
+    }
+
+    fun updateMoreLoad(position: Int) {
+        setState {
+            copy(
+                data = data.mapIndexed { index, musinsaUiComponent ->
+                    if (position == index) {
+                        val nextMaxVisibleItemCount = musinsaUiComponent.maxVisibleItemCount + 3
+                        val listSize = musinsaUiComponent.list.size
+                        musinsaUiComponent.copy(
+                            maxVisibleItemCount = nextMaxVisibleItemCount,
+                            footerData = if (nextMaxVisibleItemCount > listSize) {
+                                null
+                            } else {
+                                musinsaUiComponent.footerData
+                            }
+                        )
+                    } else {
+                        musinsaUiComponent
+                    }
+                }
+            )
         }
     }
 }

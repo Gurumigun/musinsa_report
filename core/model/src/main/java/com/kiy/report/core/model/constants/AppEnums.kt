@@ -18,3 +18,13 @@ enum class ContentType(val type: String) {
         }
     }
 }
+enum class FooterType {
+    REFRESH,
+    MORE;
+
+    companion object {
+        fun findByType(type: String?): FooterType? {
+            return entries.firstOrNull { it.name == type }
+        }
+    }
+}

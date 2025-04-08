@@ -26,15 +26,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-enum class FooterType {
-    REFRESH,
-    MORE
-}
-
 @Composable
 fun FooterCard(
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    modifier: Modifier = Modifier, content: @Composable () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -48,10 +42,8 @@ fun FooterCard(
                 .padding(horizontal = 16.dp, vertical = 4.dp)
                 .border(
                     border = BorderStroke(
-                        width = 1.dp,
-                        color = Color(0xFFE0E0E0)
-                    ),
-                    shape = RoundedCornerShape(40.dp)
+                        width = 1.dp, color = Color(0xFFE0E0E0)
+                    ), shape = RoundedCornerShape(40.dp)
                 ),
             colors = CardDefaults.cardColors(
                 containerColor = Color.White
@@ -64,16 +56,14 @@ fun FooterCard(
 
 @Composable
 fun RefreshFooter(
-    modifier: Modifier = Modifier,
-    onRefreshClick: () -> Unit
+    modifier: Modifier = Modifier, onRefreshClick: () -> Unit
 ) {
-    FooterCard(modifier = modifier) {
+    FooterCard(modifier = modifier.clickable { onRefreshClick() }) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
-                .height(36.dp)
-                .clickable { onRefreshClick() },
+                .height(36.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -91,16 +81,15 @@ fun RefreshFooter(
 
 @Composable
 fun MoreFooter(
-    modifier: Modifier = Modifier,
-    onMoreClick: () -> Unit
+    modifier: Modifier = Modifier, onMoreClick: () -> Unit
 ) {
-    FooterCard(modifier = modifier) {
+    FooterCard(modifier = modifier
+        .clickable { onMoreClick() }) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
-                .height(36.dp)
-                .clickable { onMoreClick() },
+                .height(36.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -116,12 +105,8 @@ fun MoreFooter(
 @Composable
 private fun previewFooters() {
     Column {
-        RefreshFooter(
-            onRefreshClick = {}
-        )
+        RefreshFooter(onRefreshClick = {})
         Spacer(modifier = Modifier.height(8.dp))
-        MoreFooter(
-            onMoreClick = {}
-        )
+        MoreFooter(onMoreClick = {})
     }
 }

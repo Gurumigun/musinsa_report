@@ -34,7 +34,9 @@ coil = "3.1.0"
 retrofit = "2.9.0"
 retrofit_kotlin_serialization = "1.0.0"
 retrofit_logging = "4.9.1"
-room_version = "2.6.1"
+
+mavericks = "3.0.9"
+constraintlayout = "1.1.1"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -89,9 +91,11 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 retrofit_kotlin_serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit_kotlin_serialization" }
 retrofit_logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "retrofit_logging" }
 
-room = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
-ksp_room_compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
-room_ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
+#implementation 'com.airbnb.android:mavericks:x.y.z'
+airbnb-mavericks = { group = "com.airbnb.android", name = "mavericks", version.ref = "mavericks" }
+airbnb-mavericks-compose = { group = "com.airbnb.android", name = "mavericks-compose", version.ref = "mavericks" }
+airbnb-mavericks-hilt = { group = "com.airbnb.android", name = "mavericks-hilt", version.ref = "mavericks" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -117,4 +121,10 @@ retrofit = [
     "retrofit",
     "retrofit_kotlin_serialization",
     "retrofit_logging"
+]
+
+mavericks = [
+    "airbnb-mavericks",
+    "airbnb-mavericks-compose",
+    "airbnb-mavericks-hilt"
 ]

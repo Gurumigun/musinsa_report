@@ -1,7 +1,9 @@
 package com.kiy.report.core.designsystem.theme.components.contents
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -18,16 +20,17 @@ import com.kiy.report.core.model.MusinsaUiData
 
 @Composable
 fun GridTypeComponent(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.heightIn(max = 600.dp).wrapContentHeight(),
     items: List<MusinsaUiData.GridGoodsData> = emptyList(),
     maxRow: Int = 3,
     onItemClick: (MusinsaUiData.GridGoodsData) -> Unit = {}
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(maxRow),
         modifier = modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+        columns = GridCells.Fixed(maxRow),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
+        userScrollEnabled = false
     ) {
         items(
             items = items,
@@ -36,7 +39,7 @@ fun GridTypeComponent(
             ProductItem(
                 brandName = item.brandName,
                 imageUrl = item.thumbnailURL,
-                price = item.price.toString(),
+                price = item.getPriceText(),
                 saleRate = item.saleRate,
                 hasCoupon = item.hasCoupon,
                 onClick = {

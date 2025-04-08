@@ -7,13 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.kiy.report.core.model.MusinsaProducts
+import com.kiy.report.core.model.MusinsaUiData
 
 
 @Composable
 fun HorizontalScrollTypeContent(
     modifier: Modifier = Modifier,
-    items: List<MusinsaProducts>
+    items: List<MusinsaUiData.ScrollGoodsData>
 ) {
     Box(
         modifier = modifier

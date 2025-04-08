@@ -1,5 +1,8 @@
 package com.kiy.report.core.model
 
+import com.kiy.report.core.model.constants.ContentType
+import com.kiy.report.core.model.constants.FooterType
+
 
 sealed interface MusinsaUiData {
     data class BannerTypeData(
@@ -22,7 +25,11 @@ sealed interface MusinsaUiData {
         val price: Int, // 39900
         val saleRate: Int, // 50
         val thumbnailURL: String // https://image.msscdn.net/images/goods_img/20211224/2281818/2281818_1_320.jpg
-    ) : MusinsaUiData
+    ) : MusinsaUiData {
+        fun getPriceText(): String {
+            return "%,d원".format(price)
+        }
+    }
 
     data class GridGoodsData(
         val brandName: String, // 아스트랄 프로젝션
@@ -31,9 +38,12 @@ sealed interface MusinsaUiData {
         val price: Int, // 39900
         val saleRate: Int, // 50
         val thumbnailURL: String // https://image.msscdn.net/images/goods_img/20211224/2281818/2281818_1_320.jpg
-    ) : MusinsaUiData
+    ) : MusinsaUiData {
+        fun getPriceText(): String {
+            return "%,d원".format(price)
+        }
+    }
 }
-
 
 data class HeaderData(
     val title: String?,
@@ -42,13 +52,14 @@ data class HeaderData(
 )
 
 data class FooterData(
-    val title: String,
-    val type: String? = null
+    val type: FooterType? = null,
+    val title: String
 )
 
-data class MusinsaProducts(
-    val type: String,
-    val headers: HeaderData? = null,
+data class MusinsaUiComponent(
+    val type: ContentType,
+    val maxVisibleItemCount: Int = 6,
+    val headerData: HeaderData? = null,
     val footerData: FooterData? = null,
-    val goods: List<List<MusinsaUiData>> = emptyList()
+    val list : List<MusinsaUiData> = emptyList(),
 )

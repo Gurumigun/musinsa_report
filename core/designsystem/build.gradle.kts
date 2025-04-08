@@ -13,4 +13,5 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.bundles.coil)
     implementation(projects.core.model)
+    implementation(libs.androidx.constraintlayout)
 }

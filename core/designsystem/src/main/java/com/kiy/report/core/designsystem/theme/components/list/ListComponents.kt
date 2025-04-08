@@ -3,10 +3,11 @@ package com.kiy.report.core.designsystem.theme.components.list
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.kiy.report.core.designsystem.theme.components.FooterType
 import com.kiy.report.core.designsystem.theme.components.Headers
 import com.kiy.report.core.designsystem.theme.components.MoreFooter
 import com.kiy.report.core.designsystem.theme.components.RefreshFooter
@@ -15,6 +16,7 @@ import com.kiy.report.core.designsystem.theme.components.contents.ImageBannerPag
 import com.kiy.report.core.designsystem.theme.components.contents.ScrollTypeComponent
 import com.kiy.report.core.designsystem.theme.components.contents.StyleTypeComponent
 import com.kiy.report.core.model.MusinsaUiData
+import com.kiy.report.core.model.constants.FooterType
 
 /**
  *
@@ -24,9 +26,9 @@ import com.kiy.report.core.model.MusinsaUiData
 
 @Composable
 fun ScrollTypeContents(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.wrapContentHeight(),
     items: List<MusinsaUiData.ScrollGoodsData> = emptyList(),
-    title: String?,
+    title: String? = null,
     linkUrl: String? = null,
     iconUrl: String? = null,
     footerType: FooterType? = null,
@@ -50,7 +52,7 @@ fun ScrollTypeContents(
 
 @Composable
 fun GridContents(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.wrapContentHeight(),
     items: List<MusinsaUiData.GridGoodsData> = emptyList(),
     maxCount: Int = 6,
     title: String?,
@@ -76,9 +78,10 @@ fun GridContents(
 }
 
 @Composable
-fun GridStyleContents(
-    modifier: Modifier = Modifier,
+fun StyleGridContents(
+    modifier: Modifier = Modifier.wrapContentHeight(),
     items: List<MusinsaUiData.StyleTypeData> = emptyList(),
+    maxVisibleItemCount: Int = 6,
     title: String?,
     linkUrl: String? = null,
     iconUrl: String? = null,
@@ -96,6 +99,7 @@ fun GridStyleContents(
     ) {
         StyleTypeComponent(
             styleTypeDataList = items,
+            maxVisibleCount = maxVisibleItemCount,
             onItemClick = onItemClick
         )
     }
@@ -104,7 +108,7 @@ fun GridStyleContents(
 
 @Composable
 fun BannerListContents(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.wrapContentHeight(),
     items: List<MusinsaUiData.BannerTypeData> = emptyList(),
     title: String?,
     linkUrl: String? = null,
@@ -132,7 +136,7 @@ fun BannerListContents(
 @Composable
 fun ListContainer(
     modifier: Modifier = Modifier,
-    title: String?,
+    title: String? = null,
     linkUrl: String? = null,
     iconUrl: String? = null,
     footerType: FooterType? = null,
@@ -166,6 +170,21 @@ fun ListContainer(
                 footerClick()
             }
         }
+    }
+}
 
+@Preview
+@Composable
+private fun previewListContainer() {
+    Column {
+        ListContainer(
+            title = "Title",
+            linkUrl = "https://example.com",
+            iconUrl = "https://example.com/icon.png",
+            footerType = FooterType.MORE,
+            footerClick = { /* Handle footer click */ },
+        ) {
+
+        }
     }
 }

@@ -37,4 +37,5 @@ android {
 
 dependencies {
     implementation(projects.feature.home)
+    implementation(libs.bundles.mavericks)
 }

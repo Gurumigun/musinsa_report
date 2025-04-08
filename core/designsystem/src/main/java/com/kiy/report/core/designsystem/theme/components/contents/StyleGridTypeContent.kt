@@ -1,16 +1,17 @@
 package com.kiy.report.core.designsystem.theme.components.contents
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,93 +31,71 @@ import kotlin.math.max
 @Composable
 fun StyleTypeComponent(
     modifier: Modifier = Modifier,
+    maxVisibleCount:Int = 6,
     styleTypeDataList: List<MusinsaUiData.StyleTypeData>,
     onItemClick: (MusinsaUiData.StyleTypeData) -> Unit
 ) {
-    CustomComplexGridLayout(
-        modifier = modifier,
-        spacing = 8.dp,
-    ) {
-        styleTypeDataList.forEach { product ->
-            ImageGridItem(
-                modifier = Modifier
-                    .padding(4.dp)
-                    .fillMaxSize(),
-                product = product,
-                onItemClick = onItemClick,
-            )
-        }
-
-        if (styleTypeDataList.size < 6) {
-            repeat(6 - styleTypeDataList.size) {
-                Box(
+    val size = styleTypeDataList.size
+    Column(modifier = modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            if (styleTypeDataList.isNotEmpty()) {
+                ImageGridItem(
                     modifier = Modifier
+                        .weight(2f)
                         .padding(4.dp)
-                        .background(Color.LightGray)
-                        .fillMaxSize()
+                        .aspectRatio(1f / 1.3f),
+                    product =  styleTypeDataList[0],
+                    onItemClick = onItemClick,
                 )
             }
+
+            Column(modifier = Modifier.weight(1f)) {
+                // 이미지 1, 2
+                if (size > 1) {
+                    ImageGridItem(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(4.dp),
+                        product =  styleTypeDataList[1],
+                        onItemClick = onItemClick,
+                    )
+                }
+
+                if (size > 2) {
+                    ImageGridItem(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(4.dp),
+                        product =  styleTypeDataList[2],
+                        onItemClick = onItemClick,
+                    )
+                }
+            }
         }
-    }
-}
 
-@Composable
-fun CustomComplexGridLayout(
-    modifier: Modifier = Modifier,
-    spacing: Dp = 4.dp,
-    content: @Composable () -> Unit
-) {
-    Layout(
-        content = content,
-        modifier = modifier
-    ) { measurables, constraints ->
-        if (measurables.size < 6) {
-            return@Layout layout(constraints.minWidth, constraints.minHeight) {}
-        }
-
-        val spacingPx = spacing.roundToPx()
-        val totalHorizontalSpacing = spacingPx * 2
-        val maxWidth = constraints.maxWidth
-
-        val availableWidth = maxWidth - totalHorizontalSpacing
-        val columnWidth = if (availableWidth > 0) availableWidth / 3 else 0
-
-        val item0Constraints = Constraints.fixedWidth(columnWidth * 2 + spacingPx)
-        val singleColumnConstraints = Constraints.fixedWidth(columnWidth)
-
-        val placeable0 = measurables[0].measure(item0Constraints)
-        val placeable1 = measurables[1].measure(singleColumnConstraints)
-        val placeable2 = measurables[2].measure(singleColumnConstraints)
-        val placeable3 = measurables[3].measure(singleColumnConstraints)
-        val placeable4 = measurables[4].measure(singleColumnConstraints)
-        val placeable5 = measurables[5].measure(singleColumnConstraints)
-
-        val firstSectionHeight = max(
-            placeable0.height,
-            placeable1.height + spacingPx + placeable2.height
-        )
-        val secondSectionHeight = max(
-            placeable3.height,
-            max(placeable4.height, placeable5.height)
-        )
-
-        val totalHeight = firstSectionHeight + spacingPx + secondSectionHeight
-        val finalHeight = totalHeight.coerceIn(constraints.minHeight, constraints.maxHeight)
-
-        layout(width = maxWidth, height = finalHeight) {
-            val col0X = 0
-            val col1X = columnWidth + spacingPx
-            val col2X = columnWidth * 2 + spacingPx * 2
-
-            val topRowY = 0
-            val bottomRowY = firstSectionHeight + spacingPx
-
-            placeable0.placeRelative(x = col0X, y = topRowY)
-            placeable1.placeRelative(x = col2X, y = topRowY)
-            placeable2.placeRelative(x = col2X, y = topRowY + placeable1.height + spacingPx)
-            placeable3.placeRelative(x = col0X, y = bottomRowY)
-            placeable4.placeRelative(x = col1X, y = bottomRowY)
-            placeable5.placeRelative(x = col2X, y = bottomRowY)
+        val extraItems = styleTypeDataList.drop(3)
+        extraItems.take(maxVisibleCount - 3).chunked(3).forEachIndexed { index, styleTypeData ->
+            Row(modifier = Modifier.fillMaxWidth()) {
+                styleTypeData.forEach { item ->
+                    ImageGridItem(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(4.dp)
+                            .aspectRatio(1f / 1.3f), // 세로로 길게
+                        product =  item,
+                        onItemClick = onItemClick,
+                    )
+                }
+                if (styleTypeData.size < 3) {
+                    repeat(3 - styleTypeData.size) {
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .aspectRatio(1f / 2f),
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -146,32 +125,4 @@ fun ImageGridItem(
 @Preview(showBackground = true, widthDp = 360)
 @Composable
 fun ComplexGridWithRowColumnPreview() {
-    CustomComplexGridLayout(
-        spacing = 8.dp
-    ) {
-//        ImageGridItem(
-//            product = MusinsaProducts(),
-//            onItemClick = { /* Handle item click */ },
-//        )
-//        ImageGridItem(
-//            product = MusinsaProducts(),
-//            onItemClick = { /* Handle item click */ },
-//        )
-//        ImageGridItem(
-//            product = MusinsaProducts(),
-//            onItemClick = { /* Handle item click */ },
-//        )
-//        ImageGridItem(
-//            product = MusinsaProducts(),
-//            onItemClick = { /* Handle item click */ },
-//        )
-//        ImageGridItem(
-//            product = MusinsaProducts(),
-//            onItemClick = { /* Handle item click */ },
-//        )
-//        ImageGridItem(
-//            product = MusinsaProducts(),
-//            onItemClick = { /* Handle item click */ },
-//        )
-    }
 }

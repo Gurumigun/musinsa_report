@@ -2,32 +2,33 @@ package com.kiy.report.core.api.impl.api.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 
 @Serializable
 data class MusinsaProductsResponse(
     @SerialName("data")
-    val products: List<Data>
+    val products: List<MusinsaDataResponse>
 )
 
 @Serializable
-data class Data(
+data class MusinsaDataResponse(
     @SerialName("contents")
     val contents: Contents,
     @SerialName("footer")
-    val footer: Footer,
+    val footer: Footer? = null,
     @SerialName("header")
-    val header: Header
+    val header: Header? = null
 )
 
 @Serializable
 data class Contents(
     @SerialName("banners")
-    val banners: List<Banner>,
+    val banners: List<Banner>? = null,
     @SerialName("goods")
-    val goods: List<Good>,
+    val goods: List<Good>? = null,
     @SerialName("styles")
-    val styles: List<Style>,
+    val styles: List<Style>? = null,
     @SerialName("type")
     val type: String
 )
@@ -35,21 +36,21 @@ data class Contents(
 @Serializable
 data class Footer(
     @SerialName("iconURL")
-    val iconURL: String,
+    val iconURL: String?= null,
     @SerialName("title")
-    val title: String,
+    val title: String?= null,
     @SerialName("type")
-    val type: String
+    val type: String?= null
 )
 
 @Serializable
 data class Header(
     @SerialName("iconURL")
-    val iconURL: String,
+    val iconURL: String? = null,
     @SerialName("linkURL")
-    val linkURL: String,
+    val linkURL: String?= null,
     @SerialName("title")
-    val title: String
+    val title: String?= null
 )
 
 @Serializable

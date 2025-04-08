@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kiy.report.core.model.GoodsData
+import com.kiy.report.core.model.MusinsaUiData
 
 /**
  *
@@ -19,9 +19,9 @@ import com.kiy.report.core.model.GoodsData
 @Composable
 fun ScrollTypeComponent(
     modifier: Modifier = Modifier,
-    items: List<GoodsData> = emptyList(),
+    items: List<MusinsaUiData.ScrollGoodsData> = emptyList(),
     maxRow: Int = 3,
-    onItemClick: (GoodsData) -> Unit = {}
+    onItemClick: (MusinsaUiData.ScrollGoodsData) -> Unit = {}
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(maxRow),

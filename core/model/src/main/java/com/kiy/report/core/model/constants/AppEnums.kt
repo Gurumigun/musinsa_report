@@ -13,7 +13,7 @@ enum class ContentType(val type: String) {
     STYLE("STYLE");
 
     companion object {
-        fun findByType(type: String): ContentType? {
+        fun findByType(type: String?): ContentType? {
             return entries.firstOrNull { it.type == type }
         }
     }

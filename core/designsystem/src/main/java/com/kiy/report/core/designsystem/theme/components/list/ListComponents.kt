@@ -11,12 +11,10 @@ import com.kiy.report.core.designsystem.theme.components.Headers
 import com.kiy.report.core.designsystem.theme.components.MoreFooter
 import com.kiy.report.core.designsystem.theme.components.RefreshFooter
 import com.kiy.report.core.designsystem.theme.components.contents.GridTypeComponent
-import com.kiy.report.core.designsystem.theme.components.contents.StyleTypeComponent
 import com.kiy.report.core.designsystem.theme.components.contents.ImageBannerPagerComponent
 import com.kiy.report.core.designsystem.theme.components.contents.ScrollTypeComponent
-import com.kiy.report.core.model.BannerTypeData
-import com.kiy.report.core.model.GoodsData
-import com.kiy.report.core.model.StyleTypeData
+import com.kiy.report.core.designsystem.theme.components.contents.StyleTypeComponent
+import com.kiy.report.core.model.MusinsaUiData
 
 /**
  *
@@ -27,13 +25,13 @@ import com.kiy.report.core.model.StyleTypeData
 @Composable
 fun ScrollTypeContents(
     modifier: Modifier = Modifier,
-    items: List<GoodsData> = emptyList(),
+    items: List<MusinsaUiData.ScrollGoodsData> = emptyList(),
     title: String?,
     linkUrl: String? = null,
     iconUrl: String? = null,
     footerType: FooterType? = null,
     footerClick: () -> Unit = {},
-    onItemClick: (GoodsData) -> Unit = {}
+    onItemClick: (MusinsaUiData.ScrollGoodsData) -> Unit = {}
 ) {
     ListContainer(
         modifier = modifier,
@@ -53,14 +51,14 @@ fun ScrollTypeContents(
 @Composable
 fun GridContents(
     modifier: Modifier = Modifier,
-    items: List<GoodsData> = emptyList(),
+    items: List<MusinsaUiData.GridGoodsData> = emptyList(),
     maxCount: Int = 6,
     title: String?,
     linkUrl: String? = null,
     iconUrl: String? = null,
     footerType: FooterType? = null,
     footerClick: () -> Unit = {},
-    onItemClick: (GoodsData) -> Unit = {}
+    onItemClick: (MusinsaUiData.GridGoodsData) -> Unit = {}
 ) {
     ListContainer(
         modifier = modifier,
@@ -80,13 +78,13 @@ fun GridContents(
 @Composable
 fun GridStyleContents(
     modifier: Modifier = Modifier,
-    items: List<StyleTypeData> = emptyList(),
+    items: List<MusinsaUiData.StyleTypeData> = emptyList(),
     title: String?,
     linkUrl: String? = null,
     iconUrl: String? = null,
     footerType: FooterType? = null,
     footerClick: () -> Unit = {},
-    onItemClick: (StyleTypeData) -> Unit = {}
+    onItemClick: (MusinsaUiData.StyleTypeData) -> Unit = {}
 ) {
     ListContainer(
         modifier = modifier,
@@ -107,13 +105,13 @@ fun GridStyleContents(
 @Composable
 fun BannerListContents(
     modifier: Modifier = Modifier,
-    items: List<BannerTypeData> = emptyList(),
+    items: List<MusinsaUiData.BannerTypeData> = emptyList(),
     title: String?,
     linkUrl: String? = null,
     iconUrl: String? = null,
     footerType: FooterType? = null,
     footerClick: () -> Unit = {},
-    onBannerClick: (BannerTypeData) -> Unit = {}
+    onBannerClick: (MusinsaUiData.BannerTypeData) -> Unit = {}
 ) {
     ListContainer(
         modifier = modifier,

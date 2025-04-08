@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.kiy.report.core.designsystem.theme.components.MusinsaImage
-import com.kiy.report.core.model.StyleTypeData
+import com.kiy.report.core.model.MusinsaUiData
 import kotlin.math.max
 
 /**
@@ -30,8 +30,8 @@ import kotlin.math.max
 @Composable
 fun StyleTypeComponent(
     modifier: Modifier = Modifier,
-    styleTypeDataList: List<StyleTypeData>,
-    onItemClick: (StyleTypeData) -> Unit
+    styleTypeDataList: List<MusinsaUiData.StyleTypeData>,
+    onItemClick: (MusinsaUiData.StyleTypeData) -> Unit
 ) {
     CustomComplexGridLayout(
         modifier = modifier,
@@ -124,8 +124,8 @@ fun CustomComplexGridLayout(
 @Composable
 fun ImageGridItem(
     modifier: Modifier = Modifier,
-    product: StyleTypeData,
-    onItemClick: (StyleTypeData) -> Unit
+    product: MusinsaUiData.StyleTypeData,
+    onItemClick: (MusinsaUiData.StyleTypeData) -> Unit
 ) {
     Card(
         modifier = modifier

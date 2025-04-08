@@ -25,7 +25,7 @@ import com.kiy.report.core.designsystem.theme.MusinsaReportTheme
 import com.kiy.report.core.designsystem.theme.components.MusinsaImage
 import com.kiy.report.core.designsystem.theme.components.MusinsaText
 import com.kiy.report.core.designsystem.theme.components.TextResource
-import com.kiy.report.core.model.BannerTypeData
+import com.kiy.report.core.model.MusinsaUiData
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -39,14 +39,14 @@ import kotlin.math.absoluteValue
 @Composable
 fun ImageBannerPagerComponent(
     modifier: Modifier = Modifier.aspectRatio(1F),
-    items: List<BannerTypeData>,
+    items: List<MusinsaUiData.BannerTypeData>,
     enableAutoScroll: Boolean = true,
     autoScrollDurationMillis: Long = 3000L,
     enableParallax: Boolean = true,
     parallaxFactor: Float = 0.5f,
     indicatorBackgroundColor: Color = Color.Black.copy(alpha = 0.5f),
     indicatorTextColor: Color = Color.White,
-    onBannerClick: (BannerTypeData) -> Unit = {}
+    onBannerClick: (MusinsaUiData.BannerTypeData) -> Unit = {}
 ) {
     if (items.isEmpty()) {
         return
@@ -162,21 +162,21 @@ private fun previewBannerTypeContent() {
     MusinsaReportTheme {
         ImageBannerPagerComponent(
             items = listOf(
-                BannerTypeData(
+                MusinsaUiData.BannerTypeData(
                     title = "Title 1",
                     description = "Description 1",
                     thumbnailURL = "https://image.msscdn.net/images/goods_img/20211224/2281818/2281818_1_320.jpg",
                     keyword = "",
                     linkURL = ""
                 ),
-                BannerTypeData(
+                MusinsaUiData.BannerTypeData(
                     title = "Title 2",
                     description = "Description 2",
                     thumbnailURL = "https://image.msscdn.net/images/goods_img/20211224/2281818/2281818_1_320.jpg",
                     keyword = "",
                     linkURL = ""
                 ),
-                BannerTypeData(
+                MusinsaUiData.BannerTypeData(
                     title = "Title 3",
                     description = "Description 3",
                     thumbnailURL = "https://image.msscdn.net/images/goods_img/20211224/2281818/2281818_1_320.jpg",

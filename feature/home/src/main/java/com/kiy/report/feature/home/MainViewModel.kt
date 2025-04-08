@@ -4,7 +4,9 @@ import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
 import com.airbnb.mvrx.hilt.AssistedViewModelFactory
 import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
-import com.kiy.report.core.domain.usecase.GetMusinsaProductItems
+import com.kiy.report.core.domain.usecase.GetMusinsaProductItemsUseCase
+import com.kiy.report.core.domain.usecase.ShuffleProductItemsUseCase
+import com.kiy.report.core.model.MusinsaUiData
 import com.kiy.report.feature.home.state.MainUiState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -17,7 +19,8 @@ import kotlinx.coroutines.launch
  * Date : 2025. 4. 7.
  */
 class MainViewModel @AssistedInject constructor(
-    private val getMusinsaProductItems: GetMusinsaProductItems,
+    private val getMusinsaProductItemsUseCase: GetMusinsaProductItemsUseCase,
+    private val shuffleProductItemsUseCase: ShuffleProductItemsUseCase,
     @Assisted initialState: MainUiState,
 ) : MavericksViewModel<MainUiState>(initialState) {
 
@@ -30,7 +33,7 @@ class MainViewModel @AssistedInject constructor(
     init {
         viewModelScope.launch {
             updateLoading(true)
-            getMusinsaProductItems()
+            getMusinsaProductItemsUseCase()
                 .onSuccess {
                     setState { copy(isLoading = false, data = it) }
                 }
@@ -42,18 +45,11 @@ class MainViewModel @AssistedInject constructor(
     }
 
     fun refresh(position: Int) {
-        setState {
-            val targetList = data[position]
-            val newList = targetList.copy(list = targetList.list.shuffled())
-            copy(data = data.mapIndexed { index, musinsaUiComponent ->
-                if (index == position) {
-                    musinsaUiComponent.copy(
-                        list = newList.list,
-                    )
-                } else {
-                    musinsaUiComponent
+        viewModelScope.launch {
+            shuffleProductItemsUseCase(position)
+                .onSuccess {
+                    setState { copy(isLoading = false, data = it) }
                 }
-            })
         }
     }
 

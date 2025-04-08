@@ -4,7 +4,7 @@ import com.kiy.report.core.model.MusinsaUiComponent
 import com.kiy.report.data.api.MusinsaRepository
 import javax.inject.Inject
 
-class GetMusinsaProductItems @Inject constructor(
+class GetMusinsaProductItemsUseCase @Inject constructor(
     private val repository: MusinsaRepository
 ){
     suspend operator fun invoke(): Result<List<MusinsaUiComponent>> {
